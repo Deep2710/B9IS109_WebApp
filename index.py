@@ -10,7 +10,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def home():
-    loggedIn, firstname = getLoginDetails()
+    loggedIn, firstname,totalItems = getLoginDetails()
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
         cur.execute('SELECT productId, productName, productPrice, productDescription, productImage FROM products')
@@ -18,7 +18,7 @@ def home():
         cur.execute('SELECT categoryId, categoryName FROM categories')
         categoryData = cur.fetchall()
     itemData = parse(itemData)
-    return render_template('home.html', itemData=itemData, loggedIn=loggedIn, firstname=firstname, categoryData=categoryData)
+    return render_template('home.html', itemData=itemData, loggedIn=loggedIn, firstname=firstname,totalItems=totalItems, categoryData=categoryData)
 
 #Fetch user details if logged in
 def getLoginDetails():
@@ -27,13 +27,16 @@ def getLoginDetails():
         if 'email' not in session:
             loggedIn = False
             firstname = " "
-            noOfItems = 0
+            totalItems = 0
         else:
             loggedIn = True
-            cur.execute("SELECT firstname FROM customer WHERE email = '" + session['email'] + "'")
+            cur.execute("SELECT id, firstname FROM customer WHERE email = '" + session['email'] + "'")
+            id = cur.fetchone()[0]
             firstname = cur.fetchone()
+            cur.execute("SELECT count(productId) FROM cart WHERE id = " + str(id))
+            totalItems = cur.fetchone()
     conn.close()
-    return (loggedIn, firstname)
+    return (loggedIn, firstname,totalItems)
 
 
 @app.route('/login',methods = ['GET','POST'])
@@ -122,7 +125,7 @@ def addItem():
 
 @app.route("/productDescription")
 def productDescription():
-    loggedIn, firstName = getLoginDetails()
+    loggedIn, firstName,totalItems = getLoginDetails()
     productId = request.args.get('productId')
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
@@ -131,7 +134,62 @@ def productDescription():
     conn.close()
     return render_template("productDescription.html", data=productData, loggedIn = loggedIn, firstName = firstName)
 
+@app.route("/addToCart")
+def addToCart():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+    else:
+        productId = int(request.args.get('productId'))
+        with sqlite3.connect('ecommerce.db') as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT id FROM customer WHERE email = '" + session['email'] + "'")
+            id = cur.fetchone()[0]
+            try:
+                cur.execute("INSERT INTO cart (id, productId) VALUES (?,?)", (id, productId))
+                conn.commit()
+                msg = "Added successfully"
+            except:
+                conn.rollback()
+                msg = "Error occured"
+        conn.close()
+        return redirect(url_for('home'))
 
+@app.route("/cart")
+def cart():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+    loggedIn, firstName,totalItems = getLoginDetails()
+    email = session['email']
+    with sqlite3.connect('ecommerce.db') as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT id FROM customer WHERE email = '" + email + "'")
+        id = cur.fetchone()[0]
+        cur.execute("SELECT products.productId, products.productName, products.productPrice, products.productImage FROM products, cart WHERE products.productId = cart.productId AND cart.id = " + str(id))
+        products = cur.fetchall()
+    totalPrice = 0
+    for row in products:
+        totalPrice += row[2]
+    return render_template("cart.html", products = products, totalPrice=totalPrice, loggedIn=loggedIn, firstName=firstName, totalItems=totalItems)
+
+@app.route("/removeFromCart")
+def removeFromCart():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+    email = session['email']
+    productId = int(request.args.get('productId'))
+    with sqlite3.connect('ecommerce.db') as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT id FROM customer WHERE email = '" + email + "'")
+        id = cur.fetchone()[0]
+        try:
+            cur.execute("DELETE FROM cart WHERE id = " + str(id) + " AND productId = " + str(productId))
+            conn.commit()
+            msg = "removed successfully"
+        except:
+            conn.rollback()
+            msg = "error occured"
+    conn.close()
+    return redirect(url_for('home'))
 
 def allowed_file(filename):
     return '.' in filename and \
