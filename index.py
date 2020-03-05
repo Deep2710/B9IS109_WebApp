@@ -134,6 +134,18 @@ def productDescription():
     conn.close()
     return render_template("productDescription.html", data=productData, loggedIn = loggedIn, firstName = firstName)
 
+@app.route("/displayCategory")
+def displayCategory():
+        loggedIn, firstName,totalItems = getLoginDetails()
+        categoryId = request.args.get("categoryId")
+        with sqlite3.connect('ecommerce.db') as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT products.productId, products.productName, products.productPrice, products.productImage, categories.categoryName FROM products, categories WHERE products.categoryId = categories.categoryId AND categories.categoryId = " + categoryId)
+            data = cur.fetchall()
+        conn.close()
+        categoryName = data[0][4]
+        data = parse(data)
+        return render_template('displayCategory.html', data=data, loggedIn=loggedIn, firstName=firstName, categoryName=categoryName)
 @app.route("/addToCart")
 def addToCart():
     if 'email' not in session:
