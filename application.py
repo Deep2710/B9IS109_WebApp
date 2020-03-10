@@ -68,24 +68,6 @@ def register():
         lastname = request.form['lastname']
         email = request.form['email']
         password = request.form['password']
-
-        #with sqlite3.connect('ecommerce.db') as conn:
-        #    cur = conn.cursor()
-        #    cur.execute("SELECT * FROM customer where email = '" + email + "'")
-        #    account = cur.fetchone()
-
-        #    if account:
-        #        msg = 'Account already exists with same email !'
-        #    elif not re.findall(r'[a-zA-Z]+',firstname ):
-        #        msg = 'Firstname must contain only characters!'
-        #    elif not re.match(r'[a-zA-Z]+',lastname ):
-        #        msg = 'Lastname must contain only characters!'
-        #    elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-        #        msg = 'Invalid email address!'
-        #    elif not firstname or not password or not email or not lastname:
-        #        msg = 'Please fill out the form!'
-
-        #else:
         with sqlite3.connect('ecommerce.db') as conn:
             cur = conn.cursor()
             cur.execute('INSERT INTO customer VALUES (NULL,?,?,?,?)',(firstname,lastname,email,hashlib.md5(password.encode()).hexdigest()))
