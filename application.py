@@ -31,8 +31,8 @@ def getLoginDetails():
             totalItems = 0
         else:
             loggedIn = True
-            cur.execute("SELECT id, firstname FROM customer WHERE email = '" + session['email'] + "'")
-            id = cur.fetchone()[0]
+            cur.execute("SELECT firstname FROM customer WHERE email = '" + session['email'] + "'")
+            #id = cur.fetchone()[0]
             firstname = cur.fetchone()
             cur.execute("SELECT count(productId) FROM cart WHERE id = " + str(id))
             totalItems = cur.fetchone()
