@@ -26,6 +26,13 @@ categoryId integer,
 foreign key (categoryId) references categories (categoryId)
 )''')
 
+conn.execute(''' create table if not exists cart (
+id integer,
+productId integer,
+foreign key (id) references customer(id)
+foreign key (productId) references products(productId)
+)''')
+
 
 
 
