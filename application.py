@@ -34,9 +34,12 @@ def getLoginDetails():
             loggedIn = True
             cur.execute("SELECT id, firstname FROM customer WHERE email = '" + session['email'] + "'")
             id = cur.fetchone()
-            print (str (id) + "000" )
+            print (str (id) + "00")
             firstname = cur.fetchone()
-            
+            print (str (firstname) + "12")
+            cur.execute("SELECT count(productId) FROM cart WHERE id = " + str(id))
+            totalItems = cur.fetchone()
+            print (str (totalItems) + "00")
     conn.close()
     return (loggedIn,firstname)
 
@@ -191,7 +194,7 @@ def removeFromCart():
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
         cur.execute("SELECT id FROM customer WHERE email = '" + email + "'")
-        id = cur.fetchone()
+        id = cur.fetchone()[0]
         try:
             cur.execute("DELETE FROM cart WHERE id = " + str(id) + " AND productId = " + str(productId))
             conn.commit()
@@ -211,7 +214,7 @@ def checkout():
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
         cur.execute("SELECT id FROM customer WHERE email = '" + email + "'")
-        id = cur.fetchone()
+        id = cur.fetchone()[0]
         cur.execute("SELECT products.productId, products.productName, products.productPrice, products.productImage FROM products, cart WHERE products.productId = cart.productId AND cart.id = " + str(id))
         products = cur.fetchall()
         cur.execute('SELECT categoryId, categoryName FROM categories')
