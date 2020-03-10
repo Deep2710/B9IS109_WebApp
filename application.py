@@ -11,7 +11,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def home():
-    loggedIn,firstname = getLoginDetails()
+    loggedIn,firstname,totalItems = getLoginDetails()
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
         cur.execute('SELECT products.productId, products.productName, products.productPrice, products.productDescription, products.productImage,categories.categoryName FROM products,categories WHERE products.categoryId = categories.categoryId')
@@ -19,7 +19,7 @@ def home():
         cur.execute('SELECT categoryId, categoryName FROM categories')
         categoryData = cur.fetchall()
     itemData = parse(itemData)
-    return render_template('home.html', itemData=itemData, loggedIn=loggedIn, firstname=firstname,categoryData=categoryData)
+    return render_template('home.html', itemData=itemData, loggedIn=loggedIn, firstname=firstname,totalItems=totalItems, categoryData=categoryData)
 
 #Fetch user details if logged in
 def getLoginDetails():
@@ -29,19 +29,15 @@ def getLoginDetails():
             loggedIn = False
             firstname = " "
             totalItems = 0
-            
         else:
             loggedIn = True
-            cur.execute("SELECT id, firstname FROM customer WHERE email = '" + session['email'] + "'")
+            cur.execute("SELECT id,firstname FROM customer WHERE email = '" + session['email'] + "'")
             id = cur.fetchone()[0]
-            print (str (id) + "00")
             firstname = cur.fetchone()
-            print (str (firstname) + "12")
             cur.execute("SELECT count(productId) FROM cart WHERE id = " + str(id))
             totalItems = cur.fetchone()
-            print (str (totalItems) + "00")
     conn.close()
-    return (loggedIn,firstname)
+    return (loggedIn,firstname,totalItems)
 
 
 @app.route('/login',methods = ['GET','POST'])
@@ -72,6 +68,24 @@ def register():
         lastname = request.form['lastname']
         email = request.form['email']
         password = request.form['password']
+
+        #with sqlite3.connect('ecommerce.db') as conn:
+        #    cur = conn.cursor()
+        #    cur.execute("SELECT * FROM customer where email = '" + email + "'")
+        #    account = cur.fetchone()
+
+        #    if account:
+        #        msg = 'Account already exists with same email !'
+        #    elif not re.findall(r'[a-zA-Z]+',firstname ):
+        #        msg = 'Firstname must contain only characters!'
+        #    elif not re.match(r'[a-zA-Z]+',lastname ):
+        #        msg = 'Lastname must contain only characters!'
+        #    elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+        #        msg = 'Invalid email address!'
+        #    elif not firstname or not password or not email or not lastname:
+        #        msg = 'Please fill out the form!'
+
+        #else:
         with sqlite3.connect('ecommerce.db') as conn:
             cur = conn.cursor()
             cur.execute('INSERT INTO customer VALUES (NULL,?,?,?,?)',(firstname,lastname,email,hashlib.md5(password.encode()).hexdigest()))
@@ -122,7 +136,7 @@ def addItem():
 
 @app.route("/productDescription")
 def productDescription():
-    loggedIn, firstName = getLoginDetails()
+    loggedIn, firstName,totalItems = getLoginDetails()
     productId = request.args.get('productId')
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
@@ -135,7 +149,7 @@ def productDescription():
 
 @app.route("/displayCategory")
 def displayCategory():
-        loggedIn, firstName = getLoginDetails()
+        loggedIn, firstName,totalItems = getLoginDetails()
         categoryId = request.args.get("categoryId")
         with sqlite3.connect('ecommerce.db') as conn:
             cur = conn.cursor()
@@ -170,11 +184,11 @@ def addToCart():
 def cart():
     if 'email' not in session:
         return redirect(url_for('login'))
-    loggedIn, firstName = getLoginDetails()
+    loggedIn, firstName,totalItems = getLoginDetails()
     email = session['email']
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
-        cur.execute("SELECT id, firstname FROM customer WHERE email = '" + session['email'] + "'")
+        cur.execute("SELECT id FROM customer WHERE email = '" + email + "'")
         id = cur.fetchone()[0]
         cur.execute("SELECT products.productId, products.productName, products.productPrice, products.productImage FROM products, cart WHERE products.productId = cart.productId AND cart.id = " + str(id))
         products = cur.fetchall()
@@ -209,7 +223,7 @@ def removeFromCart():
 def checkout():
     if 'email' not in session:
         return redirect(url_for('login'))
-    loggedIn, firstName = getLoginDetails()
+    loggedIn, firstName, totalItems = getLoginDetails()
     email = session['email']
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
@@ -222,7 +236,7 @@ def checkout():
     totalPrice = 0
     for row in products:
         totalPrice += row[2]
-    return render_template("checkout.html", products = products, totalPrice=totalPrice, loggedIn=loggedIn, firstName=firstName,categoryData=categoryData)
+    return render_template("checkout.html", products = products, totalPrice=totalPrice, loggedIn=loggedIn, firstName=firstName, totalItems=totalItems,categoryData=categoryData)
 
 def allowed_file(filename):
     return '.' in filename and \
