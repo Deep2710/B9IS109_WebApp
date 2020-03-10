@@ -171,6 +171,7 @@ def cart():
         cur = conn.cursor()
         cur.execute("SELECT id FROM customer WHERE email = '" + email + "'")
         id1 = cur.fetchone()
+        print (cur.fetchone() + "....")
         id = id1[0]
         cur.execute("SELECT products.productId, products.productName, products.productPrice, products.productImage FROM products, cart WHERE products.productId = cart.productId AND cart.id = " + str(id))
         products = cur.fetchall()
