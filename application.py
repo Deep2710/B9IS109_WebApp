@@ -117,7 +117,7 @@ def addItem():
 
 @app.route("/productDescription")
 def productDescription():
-    loggedIn, firstName,totalItems = getLoginDetails()
+    loggedIn, firstName = getLoginDetails()
     productId = request.args.get('productId')
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
