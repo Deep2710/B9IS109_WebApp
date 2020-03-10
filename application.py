@@ -170,7 +170,7 @@ def cart():
     with sqlite3.connect('ecommerce.db') as conn:
         cur = conn.cursor()
         cur.execute("SELECT id FROM customer WHERE email = '" + email + "'")
-        id = cur.fetchone()
+        id = cur.fetchone()[1]
         cur.execute("SELECT products.productId, products.productName, products.productPrice, products.productImage FROM products, cart WHERE products.productId = cart.productId AND cart.id = " + str(id))
         products = cur.fetchall()
         cur.execute('SELECT categoryId, categoryName FROM categories')
