@@ -33,5 +33,5 @@ jobs:
       with:
         app-name: 'shopzone'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ebb819dd49eb4892ae7cdafd842be60a }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c0e91081e32441b396b4bbcfb7765d7c }}
         package: './myapp.zip'
