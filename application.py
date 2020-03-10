@@ -33,7 +33,7 @@ def getLoginDetails():
         else:
             loggedIn = True
             cur.execute("SELECT id, firstname FROM customer WHERE email = '" + session['email'] + "'")
-            id = cur.fetchone()
+            id = cur.fetchone()[0]
             print (str (id) + "00")
             firstname = cur.fetchone()
             print (str (firstname) + "12")
@@ -155,7 +155,7 @@ def addToCart():
         with sqlite3.connect('ecommerce.db') as conn:
             cur = conn.cursor()
             cur.execute("SELECT id FROM customer WHERE email = '" + session['email'] + "'")
-            id = cur.fetchone()
+            id = cur.fetchone()[0]
             try:
                 cur.execute("INSERT INTO cart (id, productId) VALUES (?,?)", (id, productId))
                 conn.commit()
