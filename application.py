@@ -150,7 +150,7 @@ def addToCart():
         with sqlite3.connect('ecommerce.db') as conn:
             cur = conn.cursor()
             cur.execute("SELECT id FROM customer WHERE email = '" + session['email'] + "'")
-            id = cur.fetchone()[0]
+            id = cur.fetchone()
             try:
                 cur.execute("INSERT INTO cart (id, productId) VALUES (?,?)", (id, productId))
                 conn.commit()
