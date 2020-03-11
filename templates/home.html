@@ -107,8 +107,9 @@
                                                 <li><a href="/login">Login <span><i class="fa fa-lock"></i></span></a></li>
                                             </ul>
                                             	{% else %}
-                                              <a>Hello, {{firstname}}</a>
+                                              <a>Hello, {{firstname[0]}}</a>
                                               <ul class="submenu text-left">
+                                                  <li><a href="/changePassword">Change Password <span><i class="fa fa-edit"></i></span></a></li>
                                                   <li><a href="/logout">Logout <span><i class="fa fa-lock"></i></span></a></li>
                                               </ul>
                                         </li>
@@ -287,9 +288,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row no-margin row-border gallery-3column">
                     {% for data in itemData %}
                      {% for row in data %}
-                    <div class="row no-margin row-border gallery-3column">
+
                         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 {{row[5]}}">
                             <div data-product-id="7" class="productBorder chkProductID">
                                 <img src={{ url_for('static', filename='uploads/' + row[4]) }}  class="img-responsive"/>
@@ -303,7 +305,7 @@
                                 </div>
                                 <!-- products meta -->
                                 <ul class="productMetas">
-                                    <li><a href="/addToCart?productId={{request.args.get('productId')}}"><span><i class="fa fa-shopping-cart"></i></span> Add to Cart</a></li>
+                                    <li><a href="/addToCart?productId={{row[0]}}"><span><i class="fa fa-shopping-cart"></i></span> Add to Cart</a></li>
                                 </ul>
                                 <!-- // products meta -->
                                 <!-- animated-border -->
@@ -314,9 +316,10 @@
                                 <!-- // animated-border -->
                             </div>
                         </div>
-                      </div>
+
                         {% endfor %}
                       {% endfor %}
+                      </div>
                 </div>
             </section>
             <!-- footer -->

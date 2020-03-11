@@ -34,6 +34,4 @@ foreign key (productId) references products(productId)
 )''')
 
 
-
-
 conn.close()
