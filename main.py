@@ -274,6 +274,12 @@ def charge():
         currency='EUR',
         description='Shopzone Charge'
     )
+    email = session['email']
+    with sqlite3.connect('ecommerce.db') as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT id FROM customer WHERE email = '" + email + "'")
+        id = cur.fetchone()[0]
+        cur.execute("DELETE FROM cart WHERE id = '" + str(id) + "'")
     return render_template('charge.html', amount=amount)
 
 def beforeCharge():
