@@ -113,13 +113,7 @@
 
                                     <li>
                                         <a href="#">Shop</a>
-                                        <ul class="sub-menu">
-                                          <li>
-                                            {% for row in categoryData %}
-                                              <a href="/displayCategory?categoryId={{row[0]}}">{{row[1]}}</a>
-                                              {% endfor %}
-                                          </li>
-                                        </ul>
+                                    </li>
                                         <li>
                                            <a href="#">About</a>
                                        </li>
@@ -182,21 +176,21 @@
                                                 <div class="col-xs-12 col-sm-12">
                                                     <div class="form-group">
                                                         <label for="first_name">First Name <span></span></label>
-                                                        <input type="text" class="form-control" name="first_name" placeholder="First Name"> 
+                                                        <div class="form-control"> {{firstName}} </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xs-12 col-sm-12">
                                                     <div class="form-group">
                                                         <label for="last_name">Last Name <span></span></label>
-                                                        <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                                                          <div class="form-control"> {{lastName}} </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-xs-12 col-sm-12">
                                                     <div class="form-group">
                                                         <label for="email_address">Email Address <span></span></label>
-                                                        <input type="email" class="form-control" name="email_address" placeholder="Email Address">
+                                                          <div class="form-control"> {{email}} </div>
                                                     </div>
                                                 </div>
 
@@ -234,11 +228,25 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <p class="terms-conditions">
-                                                <input type="checkbox" class="input-checkbox custom_check" name="terms" id="terms">
-                                                <label for="terms" class="checkbox custom_label">I’ve read and accept the <a href="http://bronx.fuelthemes.net/about/" target="_blank">terms &amp; conditions</a></label>
-                                            </p>
-                                            <a href="#" class="btn btn-blue btn-full margin_top20">Proceed to Checkout</a>
+
+                                          <!--  <a href="#" class="btn btn-blue btn-full margin_top20">Proceed to Checkout</a> -->
+                                            <div class="">
+
+                                                <form action="/charge" method="post">
+                                                  <script
+                                                    src="https://checkout.stripe.com/checkout.js"
+                                                    class="stripe-button"
+                                                    data-key="{{ key }}"
+                                                    data-description="Shopzone Payment"
+                                                    data-amount=""
+                                                    data-locale="auto">
+                                                  </script>
+                                                </form>
+                                              </div>
+                                              <p class="terms-conditions">
+                                                  <input type="checkbox" class="input-checkbox custom_check" name="terms" id="terms">
+                                                  <label for="terms" class="checkbox custom_label">I’ve read and accept the <a href="https://stripe.com/ie/ssa" target="_blank">terms &amp; conditions</a></label>
+                                              </p>
                                         </div>
                                     </div>
         						</div>
@@ -252,7 +260,7 @@
 
             <footer class="footer">
           		<div class="container">
-          			<p class="copyright pull-left"> Copyright &copy; 2020 name. All rights reserved. design by Name <strong><a href="#">name</a>.</strong></p>
+          			<p class="copyright pull-left"> Copyright &copy; 2020 ShopZone. All rights reserved. design by Deep Shah <strong><a href="#"></a>.</strong></p>
           			<ul class="pull-right social-links text-center">
           				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
           				<li><a href="#"><i class="fa fa-instagram"></i></a></li>

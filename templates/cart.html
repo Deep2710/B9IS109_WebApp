@@ -160,8 +160,8 @@
                                                     <th class="product-thumbnail">Product</th>
                                                     <th colspan="2" class="product-name">Product</th>
                                                     <th class="product-price">Price</th>
-                                                    <th class="product-quantity">QTY</th>
-                                                    <th class="product-subtotal">Total</th>
+
+
                                                     <th class="product-remove">&nbsp;</th>
                                                 </tr>
                                             </thead>
@@ -192,19 +192,15 @@
                                                                 }
                                                             </script>
                                                             <div class="product-quantities killMargin">
-                                                                <div class="quantity clear">
-                                                                    <span class="qty-control minus" onclick="decrement(this.parentNode.getElementsByTagName('input')[0]);">-</span>
-                                                                    <input name="qty" class="qty-field" value="1" type="text">
-                                                                    <span class="qty-control plus" onclick="increment(this.parentNode.getElementsByTagName('input')[0]);">+</span>
-                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td class="product-subtotal">
-                                                        <span class="amount">€ {{totalPrice}}</span>
+
                                                     </td>
                                                     <td class="product-remove">
-                                                        <a href="/removeFromCart?productId={{row[0]}}"></a>
+                                                        <a href="/removeFromCart?rowId={{row[4]}}"></a>
                                                     </td>
                                                     {% endfor %}
                                                 </tr>
@@ -212,11 +208,7 @@
                                             </tbody>
                                         </table>
                                         <div class="row actions">
-                                            <div class="col-xs-12  col-sm-4 col-md-5 text-right">
-                                              <a href = "">
-                                                <input type="submit" value="Update Cart" name="update_cart" class="btn btn-ash-border">
-                                              </a>
-                                            </div>
+
                                         </div>
                                     </form>
                                 </div>
@@ -249,7 +241,7 @@
 
         <footer class="footer">
           <div class="container">
-            <p class="copyright pull-left"> Copyright &copy; 2020 name. All rights reserved. design by <strong><a href="#">name</a>.</strong></p>
+            <p class="copyright pull-left"> Copyright &copy; 2020 ShopZone. All rights reserved. design by Deep Shah <strong><a href="#"></a>.</strong></p>
             <ul class="pull-right social-links text-center">
               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
               <li><a href="#"><i class="fa fa-instagram"></i></a></li>

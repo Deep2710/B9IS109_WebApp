@@ -318,7 +318,7 @@
 	.slide6 .slidecaption h2:before {
 		border-width: 38px;
 		left: -76px;
-	}	
+	}
 	.home-slider-7 .slide-inner h1 {
 		font-size: 99px;
 	}
@@ -427,7 +427,7 @@
 	    float: left;
 	    margin: 17px 0 0 19px;
 	}
-	
+
 	.sixcol .price-table .price-inner {
 	  	padding: 35px 40px 40px;
 	}
@@ -458,7 +458,7 @@
 	  	font-size: 22px;
 	}
 
-	/*===================================== 
+	/*=====================================
 		Sliders
 	=======================================*/
 
@@ -489,7 +489,7 @@
 	}
 
 
-	/*===================================== 
+	/*=====================================
 		Skills page
 	=======================================*/
 
@@ -638,7 +638,7 @@
 ==============================================================*/
 
 @media (min-width: 768px) and (max-width: 979px) {
-	
+
 	/*event*/
 	.team-mate {
 		margin-bottom: 30px;
@@ -699,7 +699,7 @@
 		width: 100%;
 	}
 
-	/*-- nav4 --*/	
+	/*-- nav4 --*/
 
 	.nav4 .navbar-nav > li > a {
 	  	padding: 25px 13px;
@@ -954,7 +954,7 @@
 	}
 	.vertical-selector > section {
 	  	padding: 100px 0;
-	}	
+	}
 	.mobile-nav {
 	    background-color: #fff;
 	    left: 0;
@@ -1229,7 +1229,7 @@
 		padding: 20px 7px;
 	}
 
-	/*===================================== 
+	/*=====================================
 		Sliders
 	=======================================*/
 
@@ -1557,7 +1557,7 @@
 	  	margin: 0 8px 0 0 !important;
 	}
 	.page-nav .nav.navbar-nav {
-	  	
+
 	}
 	.page-nav li .sub-menu > li > ul {
 	  	border: 0;
@@ -1681,7 +1681,7 @@
 
 
 
-	/*===================================== 
+	/*=====================================
 		Skills page
 	=======================================*/
 
@@ -1787,7 +1787,7 @@
 	}
 	.featured-block h3,
 	.colored-block h3,
-	.featured-block h4, 
+	.featured-block h4,
 	.featured-block a {
 		font-size: 28px;
 	}
@@ -1819,7 +1819,7 @@
 ==============================================================*/
 
 @media only screen and (max-width: 767px) {
-	
+
 	/*event*/
 	.img-box {
 	  	margin-top: 50px;
@@ -2109,7 +2109,7 @@
 	}
 	.top-search.display-tableCell {
 		display: inherit;
-		margin: 0 0 15px;
+		margin: 46px 0 15px;
 		width: 100%;
 	}
 	.shopfeatureBlock {
@@ -2246,7 +2246,7 @@
 	}
 	.vertical-selector > section {
 	  	padding: 100px 0;
-	}	
+	}
 	.mobile-nav {
 	    background-color: #fff;
 	    left: 0;
@@ -2603,7 +2603,7 @@
 	}
 	.boxed-nav2 {
 	  	top: 0;
-	}	
+	}
 	.boxed-nav2 + .boxed-slider-section .slide-caption-inner {
 	  	padding-top: 80px;
 	}
@@ -2785,6 +2785,7 @@
 		margin: 0;
 		position: absolute;
 		right: 0;
+		margin-top: -28px;
 		top: 50%;
 		-webkit-transform: translateY(-50%);
 		   -moz-transform: translateY(-50%);
@@ -2878,7 +2879,7 @@
 	}
 
 
-	/*===================================== 
+	/*=====================================
 		Sliders
 	=======================================*/
 
@@ -3326,7 +3327,7 @@
 	  	padding: 15px 0;
 	}
 	.bordered .navbar-default.animated .navbar-brand {
-		padding: 5px 0; 	
+		padding: 5px 0;
 	}
 	.bordered .animated .navbar-toggle .icon-bar {
 	  	background-color: #ddd;
@@ -4087,7 +4088,7 @@
 		   -moz-transform: scaleY(1);
 			-ms-transform: scaleY(1);
 			 -o-transform: scaleY(1);
-				transform: scaleY(1);		
+				transform: scaleY(1);
 	}
 
 	.carousel-event-title {
@@ -4215,7 +4216,7 @@
 		margin-top: 15px;
 	}
 
-	/*===================================== 
+	/*=====================================
 		Skills page
 	=======================================*/
 

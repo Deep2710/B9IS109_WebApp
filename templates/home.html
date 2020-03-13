@@ -107,7 +107,7 @@
                                                 <li><a href="/login">Login <span><i class="fa fa-lock"></i></span></a></li>
                                             </ul>
                                             	{% else %}
-                                              <a>Hello, {{firstname[0]}}</a>
+                                              <a>Hello, {{firstname}}</a>
                                               <ul class="submenu text-left">
                                                   <li><a href="/changePassword">Change Password <span><i class="fa fa-edit"></i></span></a></li>
                                                   <li><a href="/logout">Logout <span><i class="fa fa-lock"></i></span></a></li>
@@ -190,12 +190,12 @@
             <!-- shop3slider -->
             <div class="shop3slider fitscreen clb">
                 <div class="one-slide-anim control-one slide-overlay">
-                    <div class="slideItem" style="background-image: url(img/shop/slider-head1.jpg)">
+                    <div class="slideItem" style="background-image: url('static/img/shop/s-1.jfif')">
                         <div class="container">
                             <div class="display-table fitscreen">
                                 <div class="display-tableCell">
-                                    <h2 class="fadeLeft">Fast and easy way to create your website</h2>
-                                    <p class="fadeRight">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id distinctio veniam facilis <br> deserunt cumque, voluptatum eaque ducimus alias maxime, architecto.</p>
+                                    <h2 class="fadeLeft"></h2>
+                                    <p class="fadeRight"></p>
                                     <div class="slidebtn fadeLeft">
                                         <a href="#" class="btn btn-blue">Buy Now</a>
                                     </div>
@@ -203,12 +203,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="slideItem" style="background-image: url(img/slider/banner13-2.jpg)">
+                    <div class="slideItem" style="background-image: url('static/img/shop/s-2.jpg')">
                         <div class="container">
                             <div class="display-table fitscreen">
                                 <div class="display-tableCell">
-                                    <h2 class=" fadeLeft">Fast and easy way to create your website</h2>
-                                    <p class="fadeRight">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id distinctio veniam facilis <br> deserunt cumque, voluptatum eaque ducimus alias maxime, architecto.</p>
+                                    <h2 class=" fadeLeft"></h2>
+                                    <p class="fadeRight"></p>
                                     <div class="slidebtn fadeLeft">
                                         <a href="#" class="btn btn-blue">Buy Now</a>
                                     </div>
@@ -224,7 +224,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-4">
                             <div class="promoBlock">
-                                <img src="static/img/shop/promo.jpg" alt="">
+                                <img src="static/img/shop/offer-1.jpg" alt="">
                                 <div class="promoHover verticalMiddle">
                                     <div class="verticalInner">
                                         <span>Mega Sale</span>
@@ -236,7 +236,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="promoBlock">
-                                <img src="static/img/shop/promo.jpg" alt="">
+                                <img src="static/img/shop/offer-2.jpg" alt="">
                                 <div class="promoHover verticalMiddle">
                                     <div class="verticalInner">
                                         <span>Mega Sale</span>
@@ -248,7 +248,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="promoBlock">
-                                <img src="static/img/shop/promo.jpg" alt="">
+                                <img src="static/img/shop/slider-3.jpg" alt="">
                                 <div class="promoHover verticalMiddle">
                                     <div class="verticalInner">
                                         <span>Mega Sale</span>
@@ -325,7 +325,7 @@
             <!-- footer -->
         	<footer class="footer">
         		<div class="container">
-        			<p class="copyright pull-left"> Copyright &copy; 2020 name. All rights reserved. design by Name <strong><a href="#">name</a>.</strong></p>
+        			<p class="copyright pull-left"> Copyright &copy; 2020 ShopZone. All rights reserved. design by Deep Shah <strong><a href="#"></a>.</strong></p>
         			<ul class="pull-right social-links text-center">
         				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
         				<li><a href="#"><i class="fa fa-instagram"></i></a></li>
@@ -340,6 +340,15 @@
         <!--
         JavaScripts
         ========================== -->
+
+        <style>
+        @media only screen and (max-width: 767px) {
+          .navbar-toggle {margin-top: -28px;}
+          .top-search.display-tableCell {
+        		margin: 33px 0 15px;
+        	}
+        }
+        </style>
         <!-- main jQuery -->
         <script type="text/javascript" src="static/js/vendor/modernizr-2.6.2.min.js"></script>
         <script type="text/javascript" src="static/js/vendor/jquery-1.11.1.min.js"></script>
